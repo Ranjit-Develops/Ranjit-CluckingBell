@@ -1,7 +1,6 @@
 Config = Config or {}
 
 Config.ActiveVehicles = {}
-Config.BanWhenExploit = false --See the name xD
 Config.Job = 'cluckingbell' -- Name for the job that can access the target etc 
 Config.JimPayments = false -- Using jim-payments?\
 
