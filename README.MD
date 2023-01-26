@@ -1,6 +1,6 @@
 A Clucking Bell Job ; You can configure For your Own Server
 
-A Big Thanks To J Lee Gaming#3366
+A Big Thanks To NevoSwissa#8239 and J Lee Gaming#3366
 
 Preview :- https://youtu.be/5_Z2jTLhF5g
 
