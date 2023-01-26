@@ -1,5 +1,17 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
+local rateLimiter = {}
+function ExploitBan(id, reason)
+	MySQL.insert('INSERT INTO bans (name, license, discord, ip, reason, expire, bannedby) VALUES (?, ?, ?, ?, ?, ?, ?)', {
+		GetPlayerName(id),
+		QBCore.Functions.GetIdentifier(id, 'license'),
+		QBCore.Functions.GetIdentifier(id, 'discord'),
+		QBCore.Functions.GetIdentifier(id, 'ip'),
+		reason,
+		2147483647,
+		'cluckingbell'
+	})
+	DropPlayer(id, 'You were permanently banned by the server for: Exploiting')
+end
 
 QBCore.Functions.CreateUseableItem("coffee", function(source, item)
     local src = source
@@ -35,17 +47,17 @@ end)
 
 QBCore.Functions.CreateUseableItem("chickenwings", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "chickenwings", 'Chicken Wings', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'prop_cs_burger_01', 60309, { x=0.02, y=0.05, z=0.02 })
+    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "chickenwings", 'Chicken Wings', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_burg', 60309, { x=0.02, y=0.05, z=0.02 })
 end)
 
 QBCore.Functions.CreateUseableItem("popcornchicken", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "popcornchicken", 'Popcorn Chicken', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'prop_cs_burger_01', 60309, { x=0.02, y=0.05, z=0.02 })
+    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "popcornchicken", 'Popcorn Chicken', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_burg', 60309, { x=0.02, y=0.05, z=0.02 })
 end)
 
 QBCore.Functions.CreateUseableItem("chickenburger", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "chickenburger", 'Chicken Burger', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'prop_cs_burger_01', 60309, { x=0.02, y=0.05, z=0.02 })
+    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "chickenburger", 'Chicken Burger', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_burg', 60309, { x=0.02, y=0.05, z=0.02 })
 end)
 
 QBCore.Functions.CreateCallback('Ranjit-CluckingBell:CheckDuty', function(source, cb)
@@ -103,10 +115,38 @@ RegisterServerEvent("Ranjit-CluckingBell:RemoveItem", function(item, amount)
     end
 end)
 
-RegisterServerEvent("Ranjit-CluckingBell:AddItem", function(item, amount)
+RegisterServerEvent("Ranjit-cluckingbell:AddItem", function(item, amount, job)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-    Player.Functions.AddItem(item, amount, false)
+    local exists = QBCore.Shared.Items[item:lower()]
+    if exists then
+        if amount > 0 then
+            if job then
+                if Config.BanWhenExploit and not Player.PlayerData.job.name == Config.Job then print("Unauthorized request") ExploitBan(src, 'Banned for exploiting') end
+                Player.Functions.AddItem(item, amount, false)
+            else
+                if not rateLimiter[src] or rateLimiter[src] + 5 < os.time() then
+                    rateLimiter[src] = os.time()
+                    Player.Functions.AddItem(item, amount, false)
+                else
+                    print("Ranjit-cluckingbell - Too many requests")
+                    if Config.BanWhenExploit then
+                        ExploitBan(src, 'Too many requests')
+                    end
+                end
+            end
+        else
+            print("Ranjit-cluckingbell - Invaild request amount")
+            if Config.BanWhenExploit then
+                ExploitBan(src, 'Amount invaild')
+            end
+        end
+    else
+        print("Ranjit-cluckingbell - Item doesnt exists")
+        if Config.BanWhenExploit then
+            ExploitBan(src, 'Item doesnt exists')
+        end
+    end
 end)
 
 QBCore.Functions.CreateCallback('Ranjit-CluckingBell:HasItem', function(source, cb, item, amount)
