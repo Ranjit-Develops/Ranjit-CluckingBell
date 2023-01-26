@@ -3,6 +3,7 @@ Config = Config or {}
 Config.ActiveVehicles = {}
 Config.Job = 'cluckingbell' -- Name for the job that can access the target etc 
 Config.JimPayments = false -- Using jim-payments?\
+Config.BanWhenExploit = false --Name says it all xD
 
 Config.UseBlips = true -- Set to false to disable blips
 
