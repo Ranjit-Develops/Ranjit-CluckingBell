@@ -51,15 +51,15 @@ go to "qb-core" then shared folder > jobs.lua and at least under line 4 :
                 name = 'recruit',
                 payment = 30,
             },
-			  ['2'] = {
+			  ['1'] = {
                 name = 'Employee',
                 payment = 30,
             },
-            ['3'] = {
+            ['2'] = {
                 name = 'Vice Manager',
                 payment = 70,
             },
-            ['2'] = {
+            ['3'] = {
                 name = 'Manager',
                 isboss = true,
                 payment = 130,
