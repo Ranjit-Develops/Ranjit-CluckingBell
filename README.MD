@@ -12,11 +12,11 @@ Mlo I am Using :- https://fivem.gnstud.io/package/5354683
 Go to "[qb]" > "qb-core" > shared > items.lua then copy this and paste in there :
 
 	--CluckingBell
-	['coffeebeans'] 			 	 = {['name'] = 'coffeebeans', 					['label'] = 'Coffee Beans', 			['weight'] = 500, 		['type'] = 'item', 		['image'] = 'coffeebeans.png', 		['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Coffee beans'},
-	['coffee'] 			 	 	 = {['name'] = 'coffee', 						['label'] = 'Coffee', 					['weight'] = 500, 		['type'] = 'item', 		['image'] = 'coffee.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Hot coffee mug'},
+	['cluckin_bucket'] 	         	 	 = {['name'] = 'cluckin_bucket', 					['label'] = 'cluckin Bucket', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'gn_cluckin_bucket.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Contains Meal with Toy'},
+	['cluckin_cup'] 				 = {['name'] = 'cluckin_cup', 			  	  	['label'] = 'Glass', 					['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'gn_cluckin_cup.png', 		['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Glass made for normal drinks'},
 	['sprite'] 	         	 	 = {['name'] = 'sprite', 						['label'] = 'Sprite', 					['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'sprite.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Cup Fill With Sprite'},
-	['cocacola'] 	         	 	 = {['name'] = 'cocacola', 					['label'] = 'CocaCola', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'cocacola.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Cup Fill With Cocacola'},
-	['pepper'] 	         	 	 = {['name'] = 'pepper', 						['label'] = 'DR.Pepper', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'pepper.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Cup Fill With DR.Pepper'},
+	['cocacola'] 	         	 	 = {['name'] = 'cocacola', 					['label'] = 'CocaCola', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'cluckin-drink.png', 			['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Cup Fill With Cocacola'},
+	['pepper'] 	         	 	 = {['name'] = 'pepper', 						['label'] = 'DR.Pepper', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'cluckin-drink.png', 				['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Cup Fill With DR.Pepper'},
 	['rawchicken'] 	         	 = {['name'] = 'rawchicken', 					['label'] = 'Raw Chicken', 				['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'rawchicken.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Raw chicekn'},
 	['wrap'] 	         	 		 = {['name'] = 'wrap', 						['label'] = 'Wraps', 					['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'wrap.png', 				['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Wraps'},
 	['lettuce'] 	         	 	 = {['name'] = 'lettuce', 						['label'] = 'Lettuce', 					['weight'] = 1000, 		['type'] = 'item', 		['image'] = 'lettuce.png', 			['unique'] = false, 	['useable'] = false, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'Lettuce'},
@@ -51,15 +51,15 @@ go to "qb-core" then shared folder > jobs.lua and at least under line 4 :
                 name = 'recruit',
                 payment = 30,
             },
-			  ['1'] = {
+			  ['2'] = {
                 name = 'Employee',
                 payment = 30,
             },
-            ['2'] = {
+            ['3'] = {
                 name = 'Vice Manager',
                 payment = 70,
             },
-            ['3'] = {
+            ['2'] = {
                 name = 'Manager',
                 isboss = true,
                 payment = 130,
