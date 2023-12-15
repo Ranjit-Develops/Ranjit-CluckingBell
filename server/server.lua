@@ -20,17 +20,17 @@ end)
 
 QBCore.Functions.CreateUseableItem("sprite", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Drink", src, "sprite", "Sprite", "amb@world_human_drinking@coffee@male@idle_a", "idle_a", 'prop_plastic_cup_02', 28422, { x=0.01, y=-0.01, z=0.00 }, Config.Thirst["Sprite"], true, false)
+    TriggerClientEvent("Ranjit-CluckingBell:Drink", src, "sprite", "Sprite", "amb@world_human_drinking@coffee@male@idle_a", "idle_a", 'gn_cluckin_cup', 28422, { x=0.01, y=-0.01, z=0.00 }, Config.Thirst["Sprite"], true, false)
 end)
 
 QBCore.Functions.CreateUseableItem("cocacola", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Drink", src, "cocacola", "CocaCola", "amb@world_human_drinking@coffee@male@idle_a", "idle_a", 'prop_plastic_cup_02', 28422, { x=0.01, y=-0.01, z=0.00 }, Config.Thirst["CocaCola"], true, false)
+    TriggerClientEvent("Ranjit-CluckingBell:Drink", src, "cocacola", "CocaCola", "amb@world_human_drinking@coffee@male@idle_a", "idle_a", 'gn_cluckin_cup', 28422, { x=0.01, y=-0.01, z=0.00 }, Config.Thirst["CocaCola"], true, false)
 end)
 
 QBCore.Functions.CreateUseableItem("pepper", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Drink", src, "pepper", "DR.Pepper", "amb@world_human_drinking@coffee@male@idle_a", "idle_a", 'prop_plastic_cup_02', 28422, { x=0.01, y=-0.01, z=0.00 }, Config.Thirst["DRPepper"], true, false)
+    TriggerClientEvent("Ranjit-CluckingBell:Drink", src, "pepper", "DR.Pepper", "amb@world_human_drinking@coffee@male@idle_a", "idle_a", 'gn_cluckin_cup', 28422, { x=0.01, y=-0.01, z=0.00 }, Config.Thirst["DRPepper"], true, false)
 end)
 
 
@@ -47,12 +47,12 @@ end)
 
 QBCore.Functions.CreateUseableItem("chickenwings", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "chickenwings", 'Chicken Wings', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_burg', 60309, { x=0.02, y=0.05, z=0.02 })
+    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "chickenwings", 'Chicken Wings', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_fowl', 60309, { x=0.02, y=0.05, z=0.02 })
 end)
 
 QBCore.Functions.CreateUseableItem("popcornchicken", function(source, item)
     local src = source
-    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "popcornchicken", 'Popcorn Chicken', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_burg', 60309, { x=0.02, y=0.05, z=0.02 })
+    TriggerClientEvent("Ranjit-CluckingBell:Eat", src, false, "popcornchicken", 'Popcorn Chicken', Config.Locals['Progressbar']['Eating']['Time'], Config.Hunger["ChickenWings"], "mp_player_inteat@burger", "mp_player_int_eat_burger", 'gn_cluckin_fowl', 60309, { x=0.02, y=0.05, z=0.02 })
 end)
 
 QBCore.Functions.CreateUseableItem("chickenburger", function(source, item)
@@ -115,37 +115,30 @@ RegisterServerEvent("Ranjit-CluckingBell:RemoveItem", function(item, amount)
     end
 end)
 
-RegisterServerEvent("Ranjit-cluckingbell:AddItem", function(item, amount, job)
+RegisterServerEvent("Ranjit-CluckingBell:AddItem")
+AddEventHandler("Ranjit-CluckingBell:AddItem", function(item, amount)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-    local exists = QBCore.Shared.Items[item:lower()]
-    if exists then
-        if amount > 0 then
-            if job then
-                if Config.BanWhenExploit and not Player.PlayerData.job.name == Config.Job then print("Unauthorized request") ExploitBan(src, 'Banned for exploiting') end
-                Player.Functions.AddItem(item, amount, false)
-            else
-                if not rateLimiter[src] or rateLimiter[src] + 5 < os.time() then
-                    rateLimiter[src] = os.time()
-                    Player.Functions.AddItem(item, amount, false)
-                else
-                    print("Ranjit-cluckingbell - Too many requests")
-                    if Config.BanWhenExploit then
-                        ExploitBan(src, 'Too many requests')
-                    end
-                end
-            end
-        else
-            print("Ranjit-cluckingbell - Invaild request amount")
-            if Config.BanWhenExploit then
-                ExploitBan(src, 'Amount invaild')
-            end
-        end
+    if not Player then
+        TriggerClientEvent('QBCore:Notify', src, "Player not found.", "error")
+        return
+    end
+
+    local itemData = QBCore.Shared.Items[item:lower()]
+    if not itemData then
+        TriggerClientEvent('QBCore:Notify', src, "Item does not exist.", "error")
+        return
+    end
+
+    if not amount or amount <= 0 then
+        TriggerClientEvent('QBCore:Notify', src, "Invalid amount.", "error")
+        return
+    end
+
+    local added = Player.Functions.AddItem(item, amount)
+    if added then
     else
-        print("Ranjit-cluckingbell - Item doesnt exists")
-        if Config.BanWhenExploit then
-            ExploitBan(src, 'Item doesnt exists')
-        end
+        TriggerClientEvent('QBCore:Notify', src, "Failed to add item.", "error")
     end
 end)
 
