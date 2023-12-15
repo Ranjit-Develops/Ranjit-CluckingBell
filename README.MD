@@ -1,3 +1,4 @@
+Fixed Version Credits To brackers97 (discord)
 A Clucking Bell Job ; You can configure For your Own Server
 
 A Big Thanks To NevoSwissa#8239 and J Lee Gaming#3366
