@@ -182,7 +182,7 @@ Config.Locals = {
 Config.Locations = {
    
     Duty = {
-        Coords = vector3(-148.44, -268.98, 43.84),--Model Name:	prop_crate_11d
+        Coords = vector3(-148.53, -269.23, 43.92),--Model Name:	prop_crate_11d
         Heading = 251.0,
         minZ = 42.84,
         maxZ = 44.84,--Model Name:	Unknown
